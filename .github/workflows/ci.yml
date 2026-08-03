@@ -32,4 +32,4 @@ jobs:
       
       - name: Build Docker Image
         run: |
-          docker build -t ops-automation-toolkit
+          docker build -t ops-automation-toolkit .
