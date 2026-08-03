@@ -6,3 +6,5 @@ pydantic[email]
 requests
 email-validator
 psutil
+pytest
+httpx
