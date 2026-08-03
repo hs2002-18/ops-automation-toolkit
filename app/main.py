@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, Request
 from app.models import User
 from app.logger import logger
 from app.config import APP_NAME, APP_VERSION
+from app.data import users
 import time
 
 app = FastAPI(
@@ -26,26 +27,6 @@ async def log_requests(request: Request, call_next):
     )
 
     return response
-
-
-# In-memory users
-users = [
-    {
-        "id": 1,
-        "name": "Alice",
-        "email": "alice@example.com",
-    },
-    {
-        "id": 2,
-        "name": "Bob",
-        "email": "bob@example.com",
-    },
-    {
-        "id": 3,
-        "name": "Charlie",
-        "email": "charlie@example.com",
-    },
-]
 
 
 @app.get("/")
