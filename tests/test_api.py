@@ -1,4 +1,23 @@
+import logging
+from pathlib import Path
+
 from fastapi.testclient import TestClient
+
+from app.logger import logger
+
+# Redirect logs for tests
+logger.handlers.clear()
+
+log_dir = Path("tests/logs")
+log_dir.mkdir(parents=True, exist_ok=True)
+
+file_handler = logging.FileHandler(log_dir / "test.log")
+formatter = logging.Formatter(
+    "%(asctime)s %(levelname)s %(message)s"
+)
+file_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
 
 from app.main import app
 

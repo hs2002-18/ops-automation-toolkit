@@ -19,6 +19,8 @@ env/
 # Logs
 # ==========================
 logs/*.log
+tests/logs/*.log
+!tests/logs/.gitkeep
 
 # ==========================
 # Reports
