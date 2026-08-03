@@ -1,6 +1,6 @@
-from pathlib import Path
-from datetime import datetime
 import zipfile
+from datetime import UTC, datetime
+from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,7 +17,7 @@ def backup_logs():
         print("No log files found.")
         return
 
-    backup_name = BACKUP_DIR / f"logs_{datetime.now():%Y%m%d_%H%M%S}.zip"
+    backup_name = BACKUP_DIR / f"logs_{datetime.now(UTC):%Y%m%d_%H%M%S}.zip"
 
     with zipfile.ZipFile(backup_name, "w", zipfile.ZIP_DEFLATED) as archive:
         for log_file in log_files:

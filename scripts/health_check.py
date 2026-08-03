@@ -1,5 +1,6 @@
-import requests
 import time
+
+import requests
 
 URL = "http://127.0.0.1:8000/health"
 
@@ -16,7 +17,7 @@ def check_health():
         print(f"Status Code   : {response.status_code}")
         print(f"Response Time : {elapsed:.2f} ms")
     
-    except requests.exceptions.RequestException as erroe:
+    except requests.exceptions.RequestException as error:
         print("=" * 40)
         print("API Health Check")
         print("=" * 40)

@@ -1,6 +1,7 @@
-from pathlib import Path
 from collections import Counter
-from datetime import datetime
+from datetime import UTC, datetime
+from pathlib import Path
+
 import psutil
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,11 +43,11 @@ def analyze_logs():
 def generate_report():
     levels, actions = analyze_logs()
 
-    report = REPORT_DIR / f"report_{datetime.now():%Y%m%d_%H%M%S}.txt"
+    report = REPORT_DIR / f"report_{datetime.now(UTC):%Y%m%d_%H%M%S}.txt"
 
     with open(report, "w", encoding="utf-8") as file:
         file.write("========== Operations Report ==========\n\n")
-        file.write(f"Generated : {datetime.now()}\n\n")
+        file.write(f"Generated : {datetime.now(UTC)}\n\n")
 
         file.write("System Information\n")
         file.write("------------------------------\n")
@@ -56,13 +57,11 @@ def generate_report():
 
         file.write("Log Summary\n")
         file.write("------------------------------\n")
-        for level in ["INFO", "WARNING", "ERROR", "CRITICAL"]:
-            file.write(f"{level:<10}: {levels[level]}\n")
+        file.writelines(f"{level:<10}: {levels[level]}\n" for level in ["INFO", "WARNING", "ERROR", "CRITICAL"])
 
         file.write("\nUser Operations\n")
         file.write("------------------------------\n")
-        for action in ["Created", "Updated", "Deleted", "Not Found"]:
-            file.write(f"{action:<10}: {actions[action]}\n")
+        file.writelines(f"{action:<10}: {actions[action]}\n" for action in ["Created", "Updated", "Deleted", "Not Found"])
 
     print(f"Report generated: {report}")
 

@@ -1,4 +1,5 @@
 import argparse
+import sys
 from collections import Counter
 from pathlib import Path
 
@@ -11,7 +12,7 @@ def read_logs(log_file):
             return file.readlines()
     except FileNotFoundError:
         print(f"Log file not found: {log_file}")
-        exit(1)
+        sys.exit(1)
 
 
 def analyze_logs(lines):

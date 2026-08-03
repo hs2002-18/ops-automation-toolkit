@@ -1,5 +1,5 @@
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
-from datetime import datetime, timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -9,12 +9,15 @@ DAYS_TO_KEEP = 30
 
 
 def cleanup_logs():
-    cutoff = datetime.now() - timedelta(days=DAYS_TO_KEEP)
+    cutoff = datetime.now(UTC) - timedelta(days=DAYS_TO_KEEP)
 
     deleted = 0
 
     for log_file in LOG_DIR.glob("*.log"):
-        modified = datetime.fromtimestamp(log_file.stat().st_mtime)
+        modified = datetime.fromtimestamp(
+            log_file.stat().st_mtime,
+            tz=UTC,
+            )
 
         if modified < cutoff:
             log_file.unlink()

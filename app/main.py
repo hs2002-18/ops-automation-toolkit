@@ -1,9 +1,11 @@
+import time
+
 from fastapi import FastAPI, HTTPException, Request
-from app.models import User
-from app.logger import logger
+
 from app.config import APP_NAME, APP_VERSION
 from app.data import users
-import time
+from app.logger import logger
+from app.models import User
 
 app = FastAPI(
     title=APP_NAME,
